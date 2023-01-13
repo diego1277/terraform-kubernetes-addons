@@ -1,37 +1,37 @@
 variable name {
-  description = "nome da release"
+  description = "release name"
   type        = string
 }
 
 variable repository {
-  description = "repositorio do chart"
+  description = "chart repository"
   type        = string
 }
 
 variable chart {
-  description = "nome do chart"
+  description = "chart name"
   type        = string
 }
 
 variable namespace {
-  description = "nome do namespace"
+  description = "namespace name"
   type        = string
 }
 
 variable create_namespace {
-  description = "definir se namespace sera criado"
+  description = "option to create namespace"
   type        = bool
   default = true
 }
 
 variable enable_custom_values {
-  description = "nome do namespace"
+  description = "option to enable custom values"
   type        = bool 
   default = false 
 }
 
 variable custom_values {
-  description = "valores customizados para o helmchart"
+  description = "helmchart custom value"
   type = map
   default = null
 }

@@ -1,6 +1,7 @@
 variable cluster_name {
   description = "cluster name"
   type        = string
+  default = ""
 }
 
 variable enable_self_managed {
@@ -12,7 +13,7 @@ variable enable_self_managed {
 variable service_account_name {
   description = "service account name"
   type        = string
-  default = ""
+  default = "ebs-csi-controller-sa"
 }
 
 variable openid_connect_arn {
@@ -29,10 +30,4 @@ variable namespace {
   description = "service account namespace"
   type = string
   default = "kube-system"
-}
-
-variable aws_image_repository {
-  description = "aws image repository"
-  type = string
-  default = "602401143452.dkr.ecr.us-east-1.amazonaws.com"
 }
