@@ -5,7 +5,6 @@ module "helm" {
   namespace = var.namespace
   repository = "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
   chart = "aws-ebs-csi-driver"
-  enable_custom_values = true
   custom_values = {
     image_repo = {
       name = "image.repository"
