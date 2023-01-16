@@ -1,6 +1,5 @@
 module "irsa" {
-  #source = "git@github.com:diego1277/terraform-kubernetes-addons.git//eks/irsa"
-  source = "/modules/kubernetes-addons/eks/irsa/"
+  source = "git@github.com:diego1277/terraform-kubernetes-addons.git//eks/irsa"
   openid_connect_arn = var.openid_connect_arn 
   openid_connect_url = var.openid_connect_url
   deploy_service_account = false

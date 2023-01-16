@@ -1,27 +1,4 @@
-locals {
-  irsa = {
-       appa = {
-         deploy_service_account = true
-         service_account_name = "appa"
-         deploy_namespace = true
-         namespace = "appa"
-         policy_arn = aws_iam_policy.appa.arn
-      }
-   }
-}
-
-module "irsa" {
-  source = ""
-  openid_connect_arn = module.cluster.openid_connect_arn
-  openid_connect_url = module.cluster.openid_connect_url
-  deploy_service_account = each.value.deploy_service_account
-  service_account_name = each.value.service_account_name
-  deploy_namespace = each.value.deploy_namespace
-  namespace = "namespace"
-  policy_arn = "policy"
-}
-
-# Terraform VPC module
+# Terraform EKS IRSA module
 
 ## Requirements
 Binary version ```v1.3.2```
@@ -30,86 +7,50 @@ Binary version ```v1.3.2```
 
 | Name | Version |
 |------|---------|
-| aws | 4.33.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.41.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.16.0 |
 
 ## How to
 Set default configuration
 ```
-module "vpc" {
-   source = "github.com/diego1277/terraform-module-vpc"
-   name = "my_vpc"
-   cidr_block = "192.168.0.0/16"
-   public_subnets = ["192.168.1.0/24","192.168.3.0/24"]
+module "irsa" {
+  source = "git@github.com:diego1277/terraform-kubernetes-addons.git//eks/irsa"
+  openid_connect_arn = "my-openid-connect-arn"
+  openid_connect_url = "my-openid-connect-url"
+  service_account_name = "my-service-account" 
+  namespace = "my-namespace"
+  policy_arn = "my-policy-arn"
 }
 ```
-Enable private subnets
-```
-module "vpc" {
-   source = "github.com/diego1277/terraform-module-vpc"
-   name = "my_vpc"
-   cidr_block = "192.168.0.0/16"
-   public_subnets = ["192.168.1.0/24","192.168.3.0/24"]
-   private_subnets = ["192.168.0.0/24","192.168.2.0/24"]
-}
-```
-Enable SG ingress rules
-```
-module "vpc" {
-   source = "github.com/diego1277/terraform-module-vpc"
-   name = "my_vpc"
-   cidr_block = "192.168.0.0/16"
-   private_subnets = ["192.168.0.0/24","192.168.2.0/24"]
-   public_subnets = ["192.168.1.0/24","192.168.3.0/24"]
-   sg_ingress_rules = {
-     ingress_self =  {
-       description = "self ingress"
-       protocol  = -1
-       from_port = 0
-       to_port   = 0
-       self      = true
-     }
-     allow_ssh = {
-       description = "allow ssh ingress"
-       protocol  = "TCP"
-       from_port = 22
-       to_port   = 22
-       cidr_blocks = ["179.222.179.220/32"]
-    }
-    allow_sg = {
-       description = "allow sql ingress"
-       protocol  = "TCP"
-       from_port = 1433
-       to_port   = 1433
-       security_groups = ["sg-0fb5879a8d59d52b8"]
-    }
-  }
-}
-```
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_iam_role.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [kubernetes_namespace_v1.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace_v1) | resource |
+| [kubernetes_service_account.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| additional\_tags | additional tags | `map` | `{}` | no |
-| cidr\_block | cidr block | `string` | n/a | yes |
-| common\_tags | common tags | `map` | <pre>{<br>  "service": "vpc"<br>}</pre> | no |
-| enable\_dns\_hostnames | enable dns hostnames | `bool` | `true` | no |
-| enable\_dns\_support | enable dns suport | `bool` | `true` | no |
-| enable\_ip\_on\_launch | define if instances launched into the subnet should be assigned a public IP address | `bool` | `false` | no |
-| name | vpcs name | `string` | n/a | yes |
-| private\_subnet\_tags | additional private subnet tags | `map` | `{}` | no |
-| private\_subnets | private subnets | `list(string)` | `[]` | no |
-| public\_subnet\_tags | additional public subnet tags | `map` | `{}` | no |
-| public\_subnets | public subnets | `list(string)` | n/a | yes |
-| sg\_egress\_rules | default egress sg rules | <pre>map(object({description=string,from_port=number,to_port=number,protocol=string,<br>                     cidr_blocks=optional(list(string)),self=optional(bool),security_groups=optional(list(string))<br>  }))</pre> | <pre>{<br>  "egress_default": {<br>    "cidr_blocks": [<br>      "0.0.0.0/0"<br>    ],<br>    "description": "egress default",<br>    "from_port": 0,<br>    "protocol": "-1",<br>    "to_port": 0<br>  }<br>}</pre> | no |
-| sg\_ingress\_rules | default ingress sg rules | <pre>map(object({description=string,from_port=number,to_port=number,protocol=string,<br>                     cidr_blocks=optional(list(string)),self=optional(bool),security_groups=optional(list(string))<br>  }))</pre> | <pre>{<br>  "ingress_self": {<br>    "description": "ingress self",<br>    "from_port": 0,<br>    "protocol": -1,<br>    "self": true,<br>    "to_port": 0<br>  }<br>}</pre> | no |
+| <a name="input_deploy_namespace"></a> [deploy\_namespace](#input\_deploy\_namespace) | deploy namespace | `bool` | `false` | no |
+| <a name="input_deploy_service_account"></a> [deploy\_service\_account](#input\_deploy\_service\_account) | deploy service account | `bool` | `false` | no |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | service account namespace | `string` | n/a | yes |
+| <a name="input_namespace_annotations"></a> [namespace\_annotations](#input\_namespace\_annotations) | namespace annotations | `map` | `{}` | no |
+| <a name="input_namespace_labels"></a> [namespace\_labels](#input\_namespace\_labels) | namespace labels | `map` | `{}` | no |
+| <a name="input_openid_connect_arn"></a> [openid\_connect\_arn](#input\_openid\_connect\_arn) | openid connect provider arn | `string` | n/a | yes |
+| <a name="input_openid_connect_url"></a> [openid\_connect\_url](#input\_openid\_connect\_url) | openid connect provider url | `string` | n/a | yes |
+| <a name="input_policy_arn"></a> [policy\_arn](#input\_policy\_arn) | policy arn | `string` | n/a | yes |
+| <a name="input_service_account_annotations"></a> [service\_account\_annotations](#input\_service\_account\_annotations) | service account annotations | `map` | `{}` | no |
+| <a name="input_service_account_name"></a> [service\_account\_name](#input\_service\_account\_name) | service account name | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| subnet\_private\_ids | private subnets id |
-| subnet\_public\_ids | public subnets id |
-| vpc\_id | vpc id |
+| <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | role arn ||
 
 ## Author:
 - `Diego Oliveira`
