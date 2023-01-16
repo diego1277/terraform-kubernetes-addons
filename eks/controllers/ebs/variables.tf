@@ -1,7 +1,7 @@
 variable cluster_name {
   description = "cluster name"
   type        = string
-  default = ""
+  default = null
 }
 
 variable enable_self_managed {
