@@ -24,14 +24,8 @@ variable create_namespace {
   default = true
 }
 
-variable enable_custom_values {
-  description = "option to enable custom values"
-  type        = bool 
-  default = false 
-}
-
 variable custom_values {
-  description = "helmchart custom value"
+  description = "helmchart custom values"
   type = map
-  default = null
+  default = {}
 }
