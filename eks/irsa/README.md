@@ -14,7 +14,7 @@ Binary version ```v1.3.2```
 Set default configuration
 ```
 module "irsa" {
-  source = "git@github.com:diego1277/terraform-kubernetes-addons.git//eks/irsa"
+  source = "github.com/diego1277/terraform-kubernetes-addons.git//eks/irsa"
   openid_connect_arn = "my-openid-connect-arn"
   openid_connect_url = "my-openid-connect-url"
   service_account_name = "my-service-account" 

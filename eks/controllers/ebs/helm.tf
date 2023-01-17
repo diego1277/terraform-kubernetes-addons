@@ -1,6 +1,6 @@
 module "helm" {
   count = var.enable_self_managed ? 1 : 0
-  source = "git@github.com:diego1277/terraform-kubernetes-addons.git//helm"
+  source = "github.com/diego1277/terraform-kubernetes-addons.git//helm"
   name = "aws-ebs-csi-driver"
   namespace = var.namespace
   repository = "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
