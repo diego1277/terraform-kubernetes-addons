@@ -19,9 +19,8 @@ module "ebs_managed" {
   openid_connect_url = "my-openid-connect-url"
 }
 ```
-```
 Set up self managed configuration
-
+```
 module "ebs_self_managed" {
   source = "github.com/diego1277/terraform-kubernetes-addons.git//eks/controllers/ebs/"
   enable_self_managed = true
