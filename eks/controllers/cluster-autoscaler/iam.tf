@@ -1,5 +1,5 @@
 resource "aws_iam_policy" "this" {
-  name        = "${var.name}_cluster_autoscaler_controller_policy"
+  name        = "cluster_autoscaler_controller_policy"
   path        = "/"
   description = "EKS Cluster Autoscaler Policy"
  
