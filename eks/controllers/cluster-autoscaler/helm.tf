@@ -9,9 +9,13 @@ module "helm" {
       name = "cloudProvider"
       value = "aws"
     }
+    override = { 
+      name  = "fullnameOverride"
+      value = "aws-cluster-autoscaler"
+    }    
     autodiscovery = {
       name = "autoDiscovery.clusterName"
-      value = "true"
+      value = var.cluster_name
     }
     aws_region = {
       name = "awsRegion"

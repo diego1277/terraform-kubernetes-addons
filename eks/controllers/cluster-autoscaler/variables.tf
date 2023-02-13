@@ -1,3 +1,8 @@
+variable "cluster_name" {
+  description = "cluster name"
+  type = string  
+}
+
 variable service_account_name {
   description = "service account name"
   type        = string
