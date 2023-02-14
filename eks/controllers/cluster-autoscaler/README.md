@@ -24,20 +24,11 @@ Binary version ```v1.3.2```
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 4.41.0 |
 
 ## How to
-Set up managed configuration
+Set up default configuration
 ```
-module "ebs_managed" {
-  source = "github.com/diego1277/terraform-kubernetes-addons.git//eks/controllers/ebs/"
-  cluster_name = "my-cluster-name"
-  openid_connect_arn = "my-openid-connect-arn" 
-  openid_connect_url = "my-openid-connect-url"
-}
-```
-Set up self managed configuration
-```
-module "ebs_self_managed" {
-  source = "github.com/diego1277/terraform-kubernetes-addons.git//eks/controllers/ebs/"
-  enable_self_managed = true
+module "cluster_autoscaler" {
+  source = "github.com/diego1277/terraform-kubernetes-addons.git//eks/controllers/cluster-autoscaler/"
+  cluster_name = "my-eks-cluster-name"
   openid_connect_arn = "my-openid-connect-arn" 
   openid_connect_url = "my-openid-connect-url"
 }
