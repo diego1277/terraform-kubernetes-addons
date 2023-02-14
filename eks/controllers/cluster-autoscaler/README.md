@@ -1,18 +1,12 @@
-/*
-    k8s.io/cluster-autoscaler/my-cluster	
-    owned
+# Terraform Cluster-Autoscaler controller module
 
-    k8s.io/cluster-autoscaler/enabled	true
+## Documentation
 
 https://github.com/kubernetes/autoscaler/tree/master/charts/cluster-autoscaler
 
 https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html#cluster-autoscaler
 
 https://aws.github.io/aws-eks-best-practices/cluster-autoscaling/
-
-*/
-
-# Terraform Cluster-Autoscaler controller module
 
 ## Requirements
 Binary version ```v1.3.2```
