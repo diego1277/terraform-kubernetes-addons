@@ -3,6 +3,7 @@ resource "kubernetes_service_account" "this" {
   metadata {
     name = var.service_account_name
     namespace = var.namespace
+    labels = var.service_account_labels
     annotations = local.service_account_annotations
   }
 }

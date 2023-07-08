@@ -30,6 +30,12 @@ variable namespace_annotations {
   default = {}
 }
 
+variable service_account_labels {
+  description = "service account labels"
+  type = map
+  default = {}
+}
+
 variable service_account_annotations {
   description = "service account annotations"
   type = map
