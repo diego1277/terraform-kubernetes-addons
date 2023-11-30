@@ -5,14 +5,14 @@ data "aws_iam_policy_document" "karpenter_role" {
 
     condition {
       test     = "StringEquals"
-      variable = "${replace(module.cluster.openid_connect_url, "https://", "")}:sub"
+      variable = "${replace(var.cluster.openid_connect_url, "https://", "")}:sub"
       values   = [
           "system:serviceaccount:karpenter:karpenter"
         ]
     }
 
     principals {
-      identifiers = [module.cluster.openid_connect_arn]
+      identifiers = [var.cluster.openid_connect_arn]
       type        = "Federated"
     }
   }
@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "karpenter_role" {
 
 resource "aws_iam_role" "karpenter_role" {
   assume_role_policy = data.aws_iam_policy_document.karpenter_role.json
-  name               = format("%s-karpenter", module.cluster.name)
+  name               = format("%s-karpenter", var.cluster.name)
 }
 
 
@@ -71,9 +71,9 @@ data "aws_iam_policy_document" "karpenter_policy" {
 }
 
 resource "aws_iam_policy" "karpenter_policy" {
-    name        = format("%s-karpenter", module.cluster.name)
+    name        = format("%s-karpenter", var.cluster.name)
     path        = "/"
-    description = module.cluster.name
+    description = var.cluster.name
 
     policy = data.aws_iam_policy_document.karpenter_policy.json
 }
