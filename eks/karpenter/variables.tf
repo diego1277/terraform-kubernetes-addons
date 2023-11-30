@@ -12,3 +12,9 @@ variable cluster_openid_connect_arn {
   description = "cluster openid connect arn"
   type        = string
 }
+
+variable cluster_endpoint {
+  description = "cluster openid connect endpoint"
+  type        = string
+}
+
