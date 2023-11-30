@@ -9,6 +9,6 @@ variable cluster_openid_connect_url {
 }
 
 variable cluster_openid_connect_arn {
-  description = "cluster openid connect url"
+  description = "cluster openid connect arn"
   type        = string
 }
