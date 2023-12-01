@@ -18,3 +18,7 @@ variable cluster_endpoint {
   type        = string
 }
 
+variable instance_profile_name {
+  description = "aws iam instance profile name"
+  type        = string
+}
