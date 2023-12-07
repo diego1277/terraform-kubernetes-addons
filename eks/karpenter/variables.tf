@@ -23,8 +23,8 @@ variable instance_profile_name {
   type        = string
 }
 
-variable instance_profile_name {
-  description = "aws iam instance profile name"
+variable chart_version {
+  description = "chart version"
   type        = string
   default     =   "0.13.1"
 }
