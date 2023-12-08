@@ -26,5 +26,5 @@ variable instance_profile_name {
 variable chart_version {
   description = "chart version"
   type        = string
-  default     =   "0.13.1"
+  default     =   "0.33.0"
 }
