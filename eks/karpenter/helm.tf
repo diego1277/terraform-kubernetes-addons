@@ -13,18 +13,21 @@ resource "helm_release" "karpenter" {
     }
 
     set {
-        name  = "clusterName"
+        name  = "settings.aws.clusterName"
         value = var.cluster_name
     }
 
     set {
-        name  = "clusterEndpoint"
+        name  = "settings.aws.clusterEndpoint"
         value = var.cluster_endpoint
     }
 
     set {
-        name  = "aws.defaultInstanceProfile"
+        name  = "settings.aws.defaultInstanceProfile"
         value = var.instance_profile_name
     }
 
 }
+
+
+
