@@ -28,9 +28,3 @@ variable chart_version {
   type        = string
   default     =   "v0.28.0"
 }
-
-variable chart_crd_version {
-  description = "chart crd version"
-  type        = string
-  default     =   "v0.28.0"
-}
