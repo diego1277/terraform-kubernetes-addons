@@ -43,6 +43,7 @@ data "aws_iam_policy_document" "karpenter_policy" {
             "ec2:DescribeAvailabilityZones",
             "ec2:DescribeSpotPriceHistory",
             "ec2:RunInstances",
+            "ec2:DescribeImages",
             "ssm:GetParameter",
             "iam:PassRole",
             "pricing:GetProducts"
