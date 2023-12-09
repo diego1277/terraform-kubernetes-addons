@@ -29,5 +29,14 @@ resource "helm_release" "karpenter" {
 
 }
 
+resource "helm_release" "karpenter_crd" {
+    namespace        = "karpenter"
+    create_namespace = true
+
+    name       = "karpenter-crd"
+    repository = "oci://public.ecr.aws/karpenter"
+    chart      = "karpenter-crd"
+    version    = var.chart_crd_version
+}
 
 
