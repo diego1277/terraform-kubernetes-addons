@@ -37,6 +37,9 @@ resource "helm_release" "karpenter_crd" {
     repository = "oci://public.ecr.aws/karpenter"
     chart      = "karpenter-crd"
     version    = var.chart_crd_version
+    depends_on = [
+      helm_release.karpenter
+    ]
 }
 
 
